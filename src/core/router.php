@@ -1,8 +1,9 @@
 <?php
 class Request {
 	public static function path(): string {
-		$path = strtok($_SERVER['REQUEST_URI'], '?');
-		return ltrim($path, '/');
+		$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '';
+		$path = trim($path, '/');
+		return preg_replace(':/+:', '/', $path);
 	}
 	public static function method(): string { return $_SERVER['REQUEST_METHOD']; }
 	public static function is_post(): bool { return self::method() == 'POST'; }
