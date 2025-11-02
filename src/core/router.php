@@ -22,7 +22,7 @@ class Request {
 class Catcher {
 	public static function catch(int $code): never {
 		http_response_code($code);
-		render("status/$code.php");
+		render("status/$code");
 		exit;
 	}
 
