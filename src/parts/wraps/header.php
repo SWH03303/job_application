@@ -1,5 +1,4 @@
-<header>
-	<h1>Generic page header</h1>
+<header class="flex">
 	<nav>
 	</nav>
 </header>

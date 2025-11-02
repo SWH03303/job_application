@@ -3,9 +3,9 @@
 <head class="flex-y">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>DoD - Home</title>
+	<title><?= $opts['full_title'] ?? ("Dod - " . ($opts['title'] ?? 'Untitled')) ?></title>
 	<link rel="icon" type="image/png" href="/static/images/favicon.png">
-	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/<?= $opts['style'] ?? 'global' ?>.css">
 </head>
 <body class="flex-y">
 <?php render('wraps/header') ?>
