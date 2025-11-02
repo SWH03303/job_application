@@ -56,7 +56,20 @@ class User {
 
 	private function __construct (private string $name) {}
 
+	public static function register(
+		string $name,
+		#[SensitiveParameter] string $pass,
+		string $email,
+	): bool {
+		$db = Database::get();
+		$hash = password_hash($pass, PASSWORD_DEFAULT);
+		$query = 'INSERT INTO user(name, hash, email) VALUES (?, ?, ?)';
+		$res = $db->query($query, [$name, $hash, $email]);
+		return !is_null($res);
+	}
+
 	public function authenticate(#[SensitiveParameter] string $pass): bool {
+		$db = Database::get();
 		$row = $db->query('SELECT hash FROM user WHERE name = ?', [$this->name])[0] ?? [];
 		$hash = $row['hash'] ?? null;
 		if (is_null($hash)) { return false; }
