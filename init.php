@@ -29,3 +29,5 @@ function list_recursive(string $dir = __DIR__ . "/core"): array {
 }
 
 foreach (list_recursive() as $module) { require $module; }
+
+Router::route();
