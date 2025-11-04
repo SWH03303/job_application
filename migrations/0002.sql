@@ -1,9 +1,9 @@
 CREATE TABLE eoi (
 	id INTEGER PRIMARY KEY,
-	user_id INTEGER NOT NULL
+	user_id INTEGER NOT NULL REFERENCES user(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-	job_id INTEGER NOT NULL
+	job_id INTEGER NOT NULL REFERENCES job(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 
@@ -22,8 +22,8 @@ CREATE TABLE eoi (
 );
 
 CREATE TABLE eoi_accept (
-	id INTEGER NOT NULL REFERENCES eoi(id)
+	id INTEGER PRIMARY KEY REFERENCES eoi(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
-	name TEXT NOT NULL, -- References job_requirement(name)
-)
+	name TEXT NOT NULL -- References job_requirement(name)
+) WITHOUT ROWID;
