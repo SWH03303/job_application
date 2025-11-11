@@ -1,8 +1,8 @@
-<h1 id="cate-ai" class="flex box">
-	AI Engineer
+<h1 id="<?= $data['id'] ?>" class="flex box">
+	<?= $data['name'] ?>
 	<span class="fill"></span>
-	<span class="minor">5</span>
+	<span class="minor"><?= count($data['entries'])?: 'None' ?></span>
 </h1>
 <div class="flex categorized-listing">
-	<!-- Put entries here -->
+	<?php foreach ($data['entries'] as $entry) { render('jobs/entry', $entry); } ?>
 </div>
