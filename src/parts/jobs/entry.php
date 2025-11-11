@@ -31,6 +31,6 @@
 			}
 			?>
 		</ul>
-		<a class="job-apply-btn" href="/apply.html"></a>
+		<a class="job-apply-btn" href="/apply?id=<?= $data['id'] ?>"></a>
 	</details>
 </article>
