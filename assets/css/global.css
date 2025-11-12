@@ -124,7 +124,7 @@ input, select {
 	/* Make the bottom color more pronounced when focused. */
 	&:focus { border-bottom: var(--form-border-active); }
 }
-input:not(:focus) { text-align: right; }
+input:placeholder-shown { text-align: right; }
 select {
 	padding: 0;
 	padding-left: .5em;
@@ -133,7 +133,6 @@ select {
 input::placeholder {
 	color: #aaa;
 	font-weight: 500;
-	text-align: right;
 }
 input[type="date"], select { text-align: right; }
 input[type="file"] {
