@@ -13,21 +13,7 @@ main {
 	}
 }
 
-#application-form {
-	--round: 2em;
-
-	gap: 5px;
-	width: 400px;
-	max-width: 100%;
-	background-color: white;
-
-	/* Highlight (by inverting colors of) the label when its corresponding input is focused. */
-	> *:has(:focus) label {
-		border-bottom: var(--form-border-active);
-		background-color: black;
-		color: white;
-	}
-}
+#application-form { width: 400px; }
 
 /* Styling for Yes/No questions. */
 .input-yesno {

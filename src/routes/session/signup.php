@@ -25,7 +25,6 @@ end_post:
 
 render_page(['forms/new_user'], [
 	'title' => 'Sign up',
-	'style' => 'signup',
 	'dname' => $dname,
 	'email' => $email,
 	'errors' => $errors,

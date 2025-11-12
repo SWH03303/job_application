@@ -89,6 +89,22 @@ summary {
 	list-style-type: none; /* Hide `::marker` pseudo element in toggle trigger */
 }
 
+form.box {
+	--round: 2em;
+
+	max-width: 100%;
+	align-items: stretch;
+	gap: 5px;
+	background-color: white;
+
+	/* Highlight (by inverting colors of) the label when its corresponding input is focused. */
+	> *:has(:focus) label {
+		border-bottom: var(--form-border-active);
+		background-color: black;
+		color: white;
+	}
+}
+
 label {
 	background-color: var(--form-color);
 	padding: .2em .6em;
@@ -132,8 +148,8 @@ input[type="radio"] { appearance: none; }
 
 /* Form submission button */
 button[type="submit"] {
-	padding: 1em 2em;
-	font-size: 16pt;
+	padding: .8em 1em;
+	font-size: 20pt;
 	font-weight: bold;
 	background-color: #000;
 	color: #fff;
