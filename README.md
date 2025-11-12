@@ -18,11 +18,10 @@ A website to advertise/apply for vacant employment positions.
 
 ### Links
 
-#### Jira
-
-* **[Summary](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/summary)**
-* **[Board](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/boards/1)**
-* **[Backlog](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/boards/1/backlog)**
+* **Jira**: [Summary](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/summary),
+[Board](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/boards/1),
+[Backlog](https://dueordie.atlassian.net/jira/software/projects/WEBTECHPRJ/boards/1/backlog).
+* **App**: [Localhost](http://127.0.0.1:6284), [Localhost 80](http://127.0.0.1:80).
 
 ## Installation
 
