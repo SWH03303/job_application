@@ -6,10 +6,11 @@ $main_routes = [
 	'/about' => 'About',
 ];
 if (Session::has_user()) {
-	$session_routes['/session/logout'] = 'Log out';
+	$session_routes['/user'] = 'Profile';
+	$session_routes['/user/logout'] = 'Log out';
 } else {
-	$session_routes['/session/login'] = 'Log in';
-	$session_routes['/session/signup'] = 'Sign up';
+	$session_routes['/user/login'] = 'Log in';
+	$session_routes['/user/signup'] = 'Sign up';
 } ?>
 <header class="flex">
 	<nav id="global-navigation" class="fill flex">
