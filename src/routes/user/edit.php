@@ -25,8 +25,11 @@ if (Request::is_post()) {
 
 	$db = Database::get();
 	$id = $user->account()->id;
-	$res =
-		$db->query('UPDATE user SET display = ?, email = ? WHERE id = ?', [$display, $email, $id]);
+	$now = new DateTimeImmutable(timezone: new DateTimeZone('UTC'))->format(DATETIME_FORMAT);
+	$res = $db->query(
+		'UPDATE user SET display = ?, email = ?, updated = ? WHERE id = ?',
+		[$display, $email, $now, $id],
+	);
 	if (is_null($res)) { $errors[] = 'Failed to update account info'; }
 	if (!empty($pass_new)) {
 		$hash = password_hash($pass, PASSWORD_DEFAULT);
