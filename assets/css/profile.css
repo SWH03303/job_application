@@ -6,9 +6,9 @@ h2 { font-size: 20pt; }
 #applicant-container { min-width: 600px; max-width: 100%; }
 
 #no-applicant-message {
-	font-size: 14pt;
 	max-width: 600px;
 	padding: 1em 2em;
+	font-size: 14pt;
 	text-align: center;
 }
 
@@ -19,10 +19,14 @@ h2 { font-size: 20pt; }
 }
 
 .edit-btn {
-	font-size: 16pt;
 	justify-content: center;
 	background-color: black;
 	color: white;
 	padding: 0 1em;
 	border-radius: var(--round);
+	font-size: 16pt;
+	font-weight: 600;
+	text-decoration: none;
+
+	&:hover { background-color: #333; }
 }
