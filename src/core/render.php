@@ -6,19 +6,15 @@ function input_id(): string {
 	return 'input-auto-' . (++$_input_counter);
 }
 
-function render(string $component, ?array $data = null) {
-	global $_g_data;
-	if (is_null($data)) { $data = $_g_data; }
+function render(string $component, ...$_data) {
+	global $_g_data; $D = empty($_data)? $_g_data : $_data;
 	require Dirs::COMPONENTS . "/$component.php";
 }
 
-function render_page(array|callable|string $content, array $data = []) {
-	global $_g_data;
-	$_g_data = $data;
+function render_page(callable $render_content, ...$_data) {
+	global $_g_data; $_g_data = $_data;
 
 	render('wraps/top');
-	if (is_string($content)) { echo "$content"; }
-	elseif (is_array($content)) { foreach ($content as $c) { render($c); }}
-	else { $content(); }
+	$render_content();
 	render('wraps/bottom');
 }

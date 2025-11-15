@@ -1,11 +1,11 @@
 <?php
-$label = $data[0] ?? $data['label'];
-$name = $data[1] ?? $data['name'];
-$type = $data[2] ?? $data['type'] ?? 'text';
-$persist = $data['persist'] ?? ($type !== 'password');
-$default = $data['default'] ?? null;
-$required = $data['required'] ?? true;
-$placeholder = $data['placeholder'] ?? null;
+$label = $D[0] ?? $D['label'];
+$name = $D[1] ?? $D['name'];
+$type = $D[2] ?? $D['type'] ?? 'text';
+$persist = $D['persist'] ?? ($type !== 'password');
+$default = $D['default'] ?? null;
+$required = $D['required'] ?? true;
+$placeholder = $D['placeholder'] ?? null;
 
 $value = (Request::is_post() && $persist)? Request::param($name) : null;
 $value = is_null($value)? $default : $value;

@@ -15,7 +15,13 @@ if (Request::is_post()) {
 }
 end_post:
 
-render_page(['forms/auth_user'], [
-	'title' => 'Login',
-	'errors' => $errors,
-]);
+render_page(function() use ($errors) {
+	echo '<form class="box flex-y flex-o" method="post">';
+	render('input', 'Email', 'email');
+	render('input', 'Password', 'pass', type: 'password');
+	render('input/csrf');
+	echo '<button type="submit">Login</button></form>';
+	render('errors', $errors);
+},
+	title: 'Login',
+);
