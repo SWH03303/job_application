@@ -5,8 +5,7 @@ $persist = $data['persist'] ?? true;
 $required = $data['required'] ?? true;
 
 $checked = (Request::is_post() && $persist)? Request::param($name) : null;
-$checked = is_null($checked)?
-	null : filter_var($checked, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+$checked = is_null($checked)? null : parse_bool($checked);
 
 $id = input_id();
 $required = $required? ' required' : '';
