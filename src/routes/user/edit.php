@@ -33,7 +33,7 @@ if (Request::is_post()) {
 	);
 	if (is_null($res)) { $errors[] = 'Failed to update account info'; }
 	if (!empty($pass_new)) {
-		$hash = password_hash($pass, PASSWORD_DEFAULT);
+		$hash = password_hash($pass_new, PASSWORD_DEFAULT);
 		$res = $db->query('UPDATE user SET hash = ? WHERE id = ?', [$hash, $id]);
 		if (is_null($res)) { $errors[] = 'Failed to update account password'; }
 	}
