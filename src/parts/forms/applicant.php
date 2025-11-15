@@ -1,4 +1,4 @@
-<section id="application-header" class="flex-y flex-o">
+<section class="flex-y flex-o">
 	<h1>Personal Info Submission</h1>
 	<p>
 		Before submitting EOIs, you must first provide some information about yourself,
@@ -6,7 +6,7 @@
 	</p>
 	<p>You can always update these data in the <span class="important">Profile</span> page.</p>
 </section>
-<form class="box flex-y" method="post">
+<form id="personal-info" class="box flex-y" method="post">
 	<?php
 		render('input', ['First Name', 'first-name']);
 		render('input', ['Last Name', 'last-name']);

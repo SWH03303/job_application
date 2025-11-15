@@ -1,0 +1,6 @@
+@import "global.css";
+
+#personal-info {
+	width: 500px;
+	max-width: 100%;
+}

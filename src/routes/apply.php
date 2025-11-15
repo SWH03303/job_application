@@ -4,6 +4,7 @@ $user = Session::user();
 if (is_null($user->applicant())) {
 	render_page(['forms/applicant'], [
 		'title' => 'Applicant Personal Info',
+		'style' => 'apply_personal',
 	]);
 	exit;
 }
