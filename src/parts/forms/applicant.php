@@ -21,6 +21,8 @@
 			'Are you willing to submit to a background check if selected for employment?',
 			'background',
 		]);
+		render('input/binary', ['Have you ever been convicted of a felony?', 'felony']);
+		render('input/binary', ['Are you a veteran?', 'veteran']);
 		render('csrf');
 	?>
 	<button type="submit">Submit</button>
