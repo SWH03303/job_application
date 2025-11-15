@@ -23,8 +23,8 @@
 		head('Address');
 		render('input', ['Street', 'street']);
 		render('input', ['Town', 'town']);
-		render('input', ['State', 'state']);
-		render('input', ['Postcode', 'postcode']);
+		render('input/select', ['State', 'state', State::options()]);
+		render('input', ['Postcode', 'postcode', 'number']);
 
 		head('Contact');
 		render('input', ['Phone No.', 'phone']);
