@@ -14,6 +14,7 @@ class Database {
 	public function query(string $stmt, array $args = []): ?array {
 		$query = $this->inner->prepare($stmt);
 		foreach ($args as $idx => $arg) {
+			if (is_bool($arg)) { $arg = (int)$arg; }
 			$type = match (gettype($arg)) {
 				'NULL' => SQLITE3_NULL,
 				'double' => SQLITE3_FLOAT,
