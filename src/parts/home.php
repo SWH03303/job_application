@@ -21,16 +21,32 @@
 	<button onclick="location.href='/user/signup';" class="signup-button">Signup Now</button>
 </section>
 
-<div id="site-info" class="flex">
-	<section id="site-description" class="fill flex-y flex-o box">
-		<h2>This website</h2>
+
+	
+<div id="fre-asked-ques" class="flex-y flex">
+	<section id="fre-asked-ques-head" class="fill flex-o box">
+		<h2>Common questions</h2>
 		<p>
-			This a
-			<span class="italic">static</span>
-			website where other people can post, or at least request, vacant job positions, as well as
-			applications for said positions.
+			Questions that are frequently asked about our job application platform.
 		</p>
 	</section>
+
+	<section id="questions" class="fill flex">
+		<article id = "ques-1" class="box">
+			<h3>How do I create an account? a</h3>
+			<p>
+				To create an account, click on the "Signup" button on the homepage and fill out the registration form with your details.
+			</p>
+		</article>
+		<article id = "ques-2" class="box">
+			<h3>How do I create an account?</h3>
+			<p>
+				To create an account, click on the "Signup" button on the homepage and fill out the registration form with your details.
+			</p>
+		</article>
+	</section>
+
+	
 
 	<!-- <section id="site-services" class="fill flex-y flex-o box">
 		<h2>Services</h2>
