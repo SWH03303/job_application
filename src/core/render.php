@@ -9,14 +9,14 @@ function input_id(): string {
 function render(string $component, ...$data) {
 	global $_g_data;
 	if (empty($data)) { $data = $_g_data; }
-	extract($data, EXTR_PREFIX_ALL, 'arg_');
+	extract($data, EXTR_PREFIX_ALL, 'arg');
 	require Dirs::COMPONENTS . "/$component.php";
 }
 
-function render_page(string $root, ...$data) {
+function render_page(callable $render_content, ...$data) {
 	global $_g_data; $_g_data = $data;
 
 	render('wraps/top');
-	render('root');
+	$render_content();
 	render('wraps/bottom');
 }
