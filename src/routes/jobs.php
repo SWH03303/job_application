@@ -24,8 +24,8 @@ foreach ($cates as $section) {
 }
 $sections = array_merge($sections, $empties);
 
-render_page(['listing'], [
-	'title' => 'Jobs Listing',
-	'style' => 'listing',
-	'sections' => $sections,
-]);
+render_page('listing',
+	title: 'Jobs Listing',
+	style: 'listing',
+	sections: $sections,
+);

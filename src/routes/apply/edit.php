@@ -69,8 +69,8 @@ if (Request::is_post()) {
 }
 end_post:
 
-render_page(['forms/applicant'], [
-	'title' => 'Applicant Personal Info',
-	'style' => 'apply_personal',
-	'errors' => $errors,
-]);
+render_page('forms/applicant',
+	title: 'Applicant Personal Info',
+	style: 'apply_personal',
+	errors: $errors,
+);

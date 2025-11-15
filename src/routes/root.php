@@ -1,2 +1,5 @@
 <?php
-render_page(['home'], ['title' => 'Home', 'style' => 'home']);
+render_page('home',
+	title: 'Home',
+	style: 'home',
+);
