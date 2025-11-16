@@ -15,6 +15,7 @@ $delete = $_GET['delete'] ?? '';
 $confirm_delete = $_POST['confirm_delete'] ?? '';
 $status_change = $_GET['status_change'] ?? '';
 $confirm_change = $_POST['confirm_change'] ?? '';
+$accpeted_statuses = ['New', 'Current', 'Final'];
 
 $searchTags = [
     'job_id:' => 'job_id', 
@@ -23,7 +24,7 @@ $searchTags = [
     'last_name:'  => 'last_name', 
 ];
 
-render_page(function() use ($infos, $search, $searchTags, $delete, $status_change, $confirm_change, $confirm_delete) {
+render_page(function() use ($infos, $search, $searchTags, $delete, $status_change, $confirm_change, $confirm_delete,$accpeted_statuses) {
 	echo 
     '
     <section id="tool-box" class="flex flex-y">
@@ -52,7 +53,7 @@ render_page(function() use ($infos, $search, $searchTags, $delete, $status_chang
         <aside id="status-change-bar" class="flex-y box">
             <form method="GET" action="">
                 <label>Status change: </label><br>
-                <input type="text" name="status_change" placeholder="user_name: Bob... -> Accepted"
+                <input type="text" name="status_change" placeholder="user_name: Bob... -> New"
                 value="' . html_sanitize($status_change) . '"
                 >
                 <input type="Submit" value="Change">
@@ -66,6 +67,7 @@ render_page(function() use ($infos, $search, $searchTags, $delete, $status_chang
                 <li>Use tag "user_id:" to filter specific applicant id ("user_id: 24125;")</li>
                 <li>Use tag "first_name:" to filter specific first name ("first_name: Bob, Jake;")</li>
                 <li>Other tags: last_name</li>
+                <li>3 Available status: New, Current, Final</li>
             </ul>
         </aside>
     </section>
@@ -86,12 +88,12 @@ render_page(function() use ($infos, $search, $searchTags, $delete, $status_chang
         } elseif ($status_change) {
             echo '
             <form method="POST" action="">
-                <label>Are you sure you want to change status of these eois?</label><br>
+                <label>Are you sure you want to change status of these eois to "' . trim(explode('->', $status_change)[1] ?? '') . '"?</label><br>
                 <input type="Submit" name="confirm_change" value="Confirm Change">
             </form>
             ';
-
-            $terms = explode(';', $status_change);
+            $terms = trim(explode('->', $status_change)[0] ?? '');
+            $terms = explode(';', $terms);
         } else {
             $terms = explode(';', $search);
         }
@@ -124,6 +126,21 @@ render_page(function() use ($infos, $search, $searchTags, $delete, $status_chang
             }
         }
         foreach ($filtered as $info) { 
+            if ($delete && $confirm_delete) {
+                $db = Database::get();
+                $db->query('DELETE FROM eoi WHERE id = ?', [$info['id']]);
+                continue;
+            } elseif ($status_change && $confirm_change) {
+                $new_status = trim(explode('->', $status_change)[1] ?? '');
+                //var_dump(array_key_exists($new_status,$accpeted_statuses));
+                if (in_array($new_status,$accpeted_statuses)) {
+                    $db = Database::get();
+                    $db->query('UPDATE eoi SET status = ? WHERE id = ?', [$new_status, $info['id']]);
+                    $info['status'] = $new_status;
+                } else {
+                    continue;
+                }
+            }
             render('eoi/eoi_info', $info); 
         }
     } else {

@@ -29,6 +29,15 @@
 
         <p>EOI Extra: <?= $D['extra'] ?></p>
         <p>Reason: <?= $D['reason'] ?></p>
+
+        <hr>
+        <div>
+            <form method="POST" action="">
+                <input type="Submit" name="delete" value="Delete">
+                <input type="Submit" name="change_status" value="Change Status">
+            </form>
+        </div>
+        
     </details>
 </article>
 
