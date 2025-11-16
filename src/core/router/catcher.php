@@ -4,8 +4,14 @@ class Catcher {
 		http_response_code($code);
 		if (!is_null($msg)) {
 			$text = "$code $msg";
-			render_page(
-				function() use (&$text) { echo "<h1>$text</h1>"; },
+			render_page(function() use (&$text) {
+				echo <<<TEXT
+				<div class="box flex-y flex-o">
+					<h1>$text</h1>
+					<a href='/'>Go back?</a>
+				</div>
+				TEXT;
+			},
 				full_title: $text,
 			);
 		}
