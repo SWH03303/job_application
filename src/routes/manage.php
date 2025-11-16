@@ -7,24 +7,23 @@ foreach ($db->query('SELECT * FROM eoi') as $row) {
     $infos[] = $row + ['applicant_info' => $applicant_info];
 
     //var_dump($row + ['applicant_info' => $applicant_info]);
-    // $entry = &$cates[$row['id']];
-	// $entry['id'] = "category-" . strtolower(str_replace(' ', '-', $row['name']));
-	// $entry['name'] = $row['name'];
-	// $entry['entries'] = [];
 }
 //exit;
 
 $search = $_GET['search'] ?? '';
 $delete = $_GET['delete'] ?? '';
+$confirm_delete = $_POST['confirm_delete'] ?? '';
+$status_change = $_GET['status_change'] ?? '';
+$confirm_change = $_POST['confirm_change'] ?? '';
 
 $searchTags = [
-    'job:' => 'job_id', 
+    'job_id:' => 'job_id', 
     'user_id:'  => 'user_id', 
     'first_name:'  => 'first_name', 
     'last_name:'  => 'last_name', 
 ];
 
-render_page(function() use ($infos, $search, $searchTags) {
+render_page(function() use ($infos, $search, $searchTags, $delete, $status_change, $confirm_change, $confirm_delete) {
 	echo 
     '
     <section id="tool-box" class="flex flex-y">
@@ -44,27 +43,59 @@ render_page(function() use ($infos, $search, $searchTags) {
             <form method="GET" action="">
                 <label>Delete: </label><br>
                 <input type="text" name="delete" placeholder="user_name: Bob..."
-                value=""
+                value="' . html_sanitize($delete) . '"
                 >
                 <input type="Submit" value="Delete">
+            </form>            
+        </aside>
+
+        <aside id="status-change-bar" class="flex-y box">
+            <form method="GET" action="">
+                <label>Status change: </label><br>
+                <input type="text" name="status_change" placeholder="user_name: Bob... -> Accepted"
+                value="' . html_sanitize($status_change) . '"
+                >
+                <input type="Submit" value="Change">
             </form>            
         </aside>
 
         <aside id="guide-bar" class="flex-y box">
             <p>Tag guide: </p>
             <ul>
-                <li>Use tag "job:" to filter for jobs ("job: VKE99, ZBA91;") </li>
+                <li>Use tag "job_id:" to filter for jobs ("job: VKE99, ZBA91;") </li>
                 <li>Use tag "user_id:" to filter specific applicant id ("user_id: 24125;")</li>
                 <li>Use tag "first_name:" to filter specific first name ("first_name: Bob, Jake;")</li>
-                <li>Other tags: last_name, user_name (find full name)</li>
+                <li>Other tags: last_name</li>
             </ul>
         </aside>
     </section>
     
 
     <div id="listing-eois" class="fill flex-y box">';
-    if ($search) {
-        $terms = explode(';', $search);
+
+    if ($search || $delete || $status_change) {
+        if ($delete) {
+            echo '
+            <form method="POST" action="">
+                <label>Are you sure you want to delete these eois?</label><br>
+                <input type="Submit" name="confirm_delete" value="Confirm Delete">
+            </form>
+            ';
+
+            $terms = explode(';', $delete);
+        } elseif ($status_change) {
+            echo '
+            <form method="POST" action="">
+                <label>Are you sure you want to change status of these eois?</label><br>
+                <input type="Submit" name="confirm_change" value="Confirm Change">
+            </form>
+            ';
+
+            $terms = explode(';', $status_change);
+        } else {
+            $terms = explode(';', $search);
+        }
+
         $filtered = $infos;
 
         foreach ($searchTags as $tag => $infoKey) {
@@ -92,7 +123,9 @@ render_page(function() use ($infos, $search, $searchTags) {
                 }
             }
         }
-        foreach ($filtered as $info) { render('eoi/eoi_info', $info); }
+        foreach ($filtered as $info) { 
+            render('eoi/eoi_info', $info); 
+        }
     } else {
         foreach ($infos as $info) { render('eoi/eoi_info', $info); }
     }
