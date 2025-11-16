@@ -2,7 +2,7 @@
 Session::require_user(true);
 
 render_page(function() {
-	echo '<div class="box flex-y">';
+	echo '<div id="enhancements-list" class="box flex-y">';
 	render('list', 'Implemented Features / Enhancements', [
 		[ 'title' => '"Create a manager registration page with server side validation requiring unique username and a password rule, and store this information in a table."',
 			[ 'title' => 'All accounts are stored on a single database table with extension tables to derive roles and associate extra data.',
@@ -24,4 +24,5 @@ render_page(function() {
 	echo '</div>';
 },
 	title: 'Enhancements',
+	style: 'enhance',
 );
