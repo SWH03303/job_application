@@ -88,4 +88,6 @@ class JobSection {
 		}
 		return $sections;
 	}
+
+	public function is_empty(): bool { return empty($this->entries); }
 }
