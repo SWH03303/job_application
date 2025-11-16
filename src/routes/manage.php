@@ -6,7 +6,7 @@ foreach ($db->query('SELECT * FROM eoi') as $row) {
     $applicant_info = $db->query('SELECT * FROM user_applicant WHERE id = ?', [$row['user_id']]);
     $infos[] = $row + ['applicant_info' => $applicant_info];
 
-    // var_dump($row + ['applicant_info' => $applicant_info]);
+    //var_dump($row + ['applicant_info' => $applicant_info]);
     // $entry = &$cates[$row['id']];
 	// $entry['id'] = "category-" . strtolower(str_replace(' ', '-', $row['name']));
 	// $entry['name'] = $row['name'];
@@ -75,9 +75,19 @@ render_page(function() use ($infos, $search, $searchTags) {
                 if (str_starts_with($term, $tag)) {
                     $extractedInfo = array_map('trim', explode(',', substr($term, strlen($tag))));
 
+                    
+
                     $filtered = 
                     array_filter($filtered, function($info) use ($extractedInfo, $infoKey) {
-                        return in_array($info[$infoKey], $extractedInfo);
+                        if (array_key_exists($infoKey, $info)) {
+                            return in_array($info[$infoKey], $extractedInfo);
+                        }
+
+                        if (isset($info['applicant_info'][0]) && array_key_exists($infoKey, $info['applicant_info'][0])) {
+                            return in_array($info['applicant_info'][0][$infoKey], $extractedInfo);
+                        }
+
+                        return false;
                     });
                 }
             }
