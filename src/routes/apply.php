@@ -24,7 +24,7 @@ render_page(function() use (&$job, &$errors) {
 	</section>
 	TEXT;
 	render('errors', $errors);
-	echo '<form id="application-form" class="flex-y box" action="formtest.php" method="post" enctype="multipart/form-data">';
+	echo '<form id="application-form" class="flex-y box" method="post" enctype="multipart/form-data">';
 
 	$salary_range = $job->salary->min	. ' ~ ' . $job->salary->max;
 	$salary_cur = $job->salary->currency . ' / year';
@@ -41,7 +41,10 @@ render_page(function() use (&$job, &$errors) {
 	render('input', 'Additional supporting documents (resume, certificates, e.t.c.)', 'documents',
 		type: 'file',
 		vertical: true,
+		required: false,
 	);
+	render('input/hidden', 'id', $job->id);
+	render('input/csrf');
 	render('input/submit');
 
 	echo '</form></div>';
