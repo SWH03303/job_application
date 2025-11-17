@@ -18,11 +18,8 @@ function guide_bar() : string {
 
 function other_tools(bool $search, $delete, $change): string {
     $other_tools_ = '
-    <article id="other-tools" class="flex-y box">
-        <p>Other tools</p>
-        <details class="flex flex-y other-tools-details">
-            <summary></summary>
-            <hr>
+    <article id="other-tools" class="flex box">
+        <p class="fill">Other tools</p>
     ';
 
     if ($search) {
@@ -38,8 +35,6 @@ function other_tools(bool $search, $delete, $change): string {
     }
 
     $other_tools_ .= '
-            <hr>
-        </details>
     </article>
     ';
 
@@ -49,10 +44,10 @@ function other_tools(bool $search, $delete, $change): string {
 
 function search_head_html(string $h2val, $searchBarName, $search, $extra_search, $extra_delete, $extra_change, bool $dropdownChange) : string {
     $searchTags = [
-        'job_id:' => 'job_id', 
-        'user_id:'  => 'user_id', 
-        'first_name:'  => 'first_name', 
-        'last_name:'  => 'last_name', 
+        'job_id:' => 'job_id',
+        'user_id:'  => 'user_id',
+        'first_name:'  => 'first_name',
+        'last_name:'  => 'last_name',
     ];
 
 
@@ -61,10 +56,9 @@ function search_head_html(string $h2val, $searchBarName, $search, $extra_search,
         <div id="tool-box" class = "flex flex-o">
             <aside id="search-bar" class="flex-y box">
                 <h2>' . $h2val . '</h2>
-                <form method="GET" action=""
-                    <label></label>
-                    <input type="text" 
-                    name="search" 
+                <form method="GET" class="box">
+                    <input type="text"
+                    name="search"
                     placeholder="user_name: Bob..." value="' . html_sanitize($search) . '"
                 >
                 ';
@@ -84,14 +78,14 @@ function search_head_html(string $h2val, $searchBarName, $search, $extra_search,
                 </form>
 
                 '. other_tools($extra_search, $extra_delete, $extra_change) .'
-                
+
             </aside>
 
             '. guide_bar() .'
-            
+
         </div>
 
-        <div id="listing-eois" class="fill flex-y box"> 
+        <div id="listing-eois" class="fill flex-y box">
     ';
 
     return $search_func;

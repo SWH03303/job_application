@@ -24,8 +24,8 @@
 		justify-content: flex-start;
 	}
 
-	article:has(> details[open]) { 
-		flex-basis: 100%; 
+	article:has(> details[open]) {
+		flex-basis: 100%;
 		background: #eaeaea;
 		summary {
 			height: 10%;
@@ -36,7 +36,7 @@
 		margin-right: .5em; /* Lazy whitespace */
 		font-weight: bold;
 	}
-	
+
 }
 
 #outer-box, #tool-box {
@@ -55,13 +55,23 @@
 
 #search-bar {
 	gap: var(--spacing);
+	form {
+		padding: 0;
+		* { border: none; }
+		input { text-align: left; }
+		[type="submit"] {
+			background-color: black;
+			color: white;
+			font-weight: 600;
+		}
+		> :first-child { border-radius: var(--round) 0 0 var(--round); }
+		> :last-child { border-radius: 0 var(--round) var(--round) 0; }
+	}
 }
 
 #other-tools {
-	width: 50%;
-	border-radius: 0% 0% 0% 0%;
+	padding: .5em;
 }
-
 
 .job-ident::before { content: "Ref. Number:"; }
 .job-company::before { content: "Company:"; }
