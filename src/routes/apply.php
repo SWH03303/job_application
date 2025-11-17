@@ -67,7 +67,16 @@ end_post:
 render_page(function() use (&$job, &$errors) {
 	$applicant = Session::user()?->applicant();
 
-	echo '<div class="fill flex-y">';
+	echo <<<'TEXT'
+	<section id="application-header" class="flex-y flex-o">
+		<h1>Application Submission</h1>
+		<p>To apply for your selected job, please fill the following form.<p>
+	</section>
+	TEXT;
+	render('errors', $errors);
+
+	echo '<div class="fill flex">';
+	echo '<div id="ext-info" class="fill flex-y">';
 	render('boxlink', function() use (&$job) {
 		$name = html_sanitize($job->name);
 		echo <<<TEXT
@@ -88,14 +97,6 @@ render_page(function() use (&$job, &$errors) {
 	render('profile', $applicant);
 	echo '</div>';
 
-	echo <<<'TEXT'
-	<div class="flex-y">
-	<section id="application-header" class="flex-y flex-o">
-		<h1>Application Submission</h1>
-		<p>To apply for your selected job, please fill the following form.<p>
-	</section>
-	TEXT;
-	render('errors', $errors);
 	echo '<form id="application-form" class="flex-y box" method="post" enctype="multipart/form-data">';
 
 	$salary_range = $job->salary->min	. ' ~ ' . $job->salary->max;

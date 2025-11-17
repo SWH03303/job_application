@@ -1,12 +1,11 @@
 @import "global.css";
 
 #content {
-	flex-direction: row;
 	width: 1000px;
 	max-width: 100%;
 }
 
-#content > :first-child { gap: var(--spacing); }
+#content > :last-child, #ext-info { gap: var(--spacing); }
 
 .info-company {
 	font-size: 18pt;
