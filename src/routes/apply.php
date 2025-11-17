@@ -23,10 +23,16 @@ render_page(function() use ($errors) {
 
 	render('input', 'Desired Salary');
 	render('input', $start_date_msg, 'start-date', type: 'date', vertical: true);
+	render('input/radio', 'Time', options: [
+		'full' => 'Full-time',
+		'part' => 'Part-time',
+		'temp' => 'Temporary',
+	]);
 	render('input', 'Additional supporting documents (resume, certificates, e.t.c.)', 'documents',
 		type: 'file',
 		vertical: true,
 	);
+	render('input/submit');
 
 	echo '</form>';
 },
