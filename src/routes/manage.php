@@ -19,50 +19,8 @@ render_page(function() use ($infos) {
         'last_name:'  => 'last_name', 
     ];
 
-
-    echo 
-    '
-    <section id="outer-box" class="flex flex-y">
-        <div id="tool-box" class = "flex flex-o">
-            <aside id="search-bar" class="flex-y box">
-                <h2>Search: </h2>
-                <form method="GET" action=""
-                    <label></label>
-                    <input type="text" 
-                    name="search" 
-                    placeholder="user_name: Bob..." value="' . html_sanitize($search) . '"
-                >
-
-                    <input type="Submit" value="Search">
-                </form>
-
-                <article id="other-tools" class="flex-y box">
-                    <p>Other tools</p>
-                    <details class="flex flex-y eoi-details">
-                        <summary></summary>
-                        <hr>
-                        <button onclick="window.location.href=\'/manager/delete\'">Delete</button>
-                        <button onclick="window.location.href=\'/manager/changestatus\'">Change status</button>
-                        <hr>
-                    </details>
-                </article>
-                
-            </aside>
-
-            <aside id="guide-bar" class="flex-y box">
-                <p>Tag guide: </p>
-                <ul>
-                    <li>Use tag "job_id:" to filter for jobs ("job: VKE99, ZBA91;") </li>
-                    <li>Use tag "user_id:" to filter specific applicant id ("user_id: 24125;")</li>
-                    <li>Use tag "first_name:" to filter specific first name ("first_name: Bob, Jake;")</li>
-                    <li>Other tags: last_name</li>
-                </ul>
-            </aside>
-        </div>
-
-        <div id="listing-eois" class="fill flex-y box">' ;
-
-    //search_function($search, ...$searchTags);
+    echo search_head_html('Search: ', 'Search', false, $search);
+    
     if ($search) {
         $terms = explode(';', $search);
 

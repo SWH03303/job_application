@@ -31,7 +31,7 @@ if (Request::is_post()) {
 	if (!ctype_digit($salary)) { $errors[] = 'Salary must be a number'; }
 	else {
 		$salary = intval($salary);
-		if (!new Range($job->salary->min, $job->salary->max)->contains($salary))
+		if (!((new Range($job->salary->min, $job->salary->max))->contains($salary)))
 			{ $errors[] = 'Salary must be in specified range'; }
 	}
 	if (!ctype_digit($exp)) { $errors[] = 'Experience must be a number'; }
