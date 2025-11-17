@@ -4,8 +4,18 @@ Session::require_user(true);
 $db = Database::get();
 $infos = getAndMergeEOIInfos($db);
 
+// foreach ($db->query('SELECT * FROM eoi') as $row) {
+//     $applicant_info = $db->query('SELECT * FROM user_applicant WHERE id = ?', [$row['user_id']]);
+//     $infos[] = $row + ['applicant_info' => $applicant_info];
+// }
+
+// $infos = 
+
+
 render_page(function() use ($infos) {
-	$search = $_GET['search'] ?? '';
+	$delete = $_GET['delete'] ?? '';
+    $confirm_delete = $_POST['confirm_delete'] ?? '';
+
     $searchTags = [
         'job_id:' => 'job_id', 
         'user_id:'  => 'user_id', 
@@ -13,10 +23,16 @@ render_page(function() use ($infos) {
         'last_name:'  => 'last_name', 
     ];
 
-    echo search_head_html('Search: ', 'Search', $search, false, true, true , false);
+    echo search_head_html('Delete: ', 'Delete', $delete, true, false, true , false);
+    if ($delete) {
+        echo '
+            <form method="POST" action="">
+                <label>Are you sure you want to delete these eois?</label>
+                <input type="Submit" name="confirm_delete" value="Confirm Delete">
+            </form>
+            ';
 
-    if ($search) {
-        $terms = explode(';', $search);
+        $terms = explode(';', $delete);
 
         $filtered = $infos;
 
@@ -25,6 +41,9 @@ render_page(function() use ($infos) {
                 $term = trim($term);
                 if (str_starts_with($term, $tag)) {
                     $extractedInfo = array_map('trim', explode(',', substr($term, strlen($tag))));
+
+                    
+
                     $filtered = 
                     array_filter($filtered, function($info) use ($extractedInfo, $infoKey) {
                         if (array_key_exists($infoKey, $info)) {
@@ -42,11 +61,19 @@ render_page(function() use ($infos) {
 
             
         }
+
         foreach ($filtered as $info) { 
+            if ($delete && $confirm_delete) {
+                $db = Database::get();
+                $db->query('DELETE FROM eoi WHERE id = ?', [$info['id']]);
+            } 
             render('eoi/eoi_info', $info); 
         }
     } else {
-        foreach ($infos as $info) { render('eoi/eoi_info', $info); }
+        
+        foreach ($infos as $info) { 
+            render('eoi/eoi_info', $info); 
+        }
     }
 
     echo '
