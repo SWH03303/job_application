@@ -11,7 +11,6 @@ CREATE TABLE eoi (
 	desired_salary INTEGER NOT NULL,
 	timeplan TEXT NOT NULL
 		CHECK(timeplan IN ('full', 'part', 'temp')),
-	extra TEXT NOT NULL, -- Additional qualifications
 
 	status TEXT NOT NULL
 		CHECK(status IN ('New', 'Current', 'Final'))
