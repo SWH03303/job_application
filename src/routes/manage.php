@@ -7,8 +7,6 @@ $infos = [];
 foreach ($db->query('SELECT * FROM eoi') as $row) {
     $applicant_info = $db->query('SELECT * FROM user_applicant WHERE id = ?', [$row['user_id']]);
     $infos[] = $row + ['applicant_info' => $applicant_info];
-
-    //var_dump($row + ['applicant_info' => $applicant_info]);
 }
 //exit;
 
@@ -44,10 +42,10 @@ render_page(function() use ($infos) {
 
                     <input type="Submit" value="Search">
                 </form>
-                
+
                 <h3>Other tools:</h3>
-                <button onclick="window.location.href=\'/manage\'">Delete</button>
-                <button onclick="window.location.href=\'/manage\'">Changing status</button>
+                <button onclick="window.location.href=\'/manager/delete\'">Delete</button>
+                <button onclick="window.location.href=\'/manager/delete\'">Changing status</button>
             </aside>
 
             <aside id="guide-bar" class="flex-y box">
@@ -57,12 +55,11 @@ render_page(function() use ($infos) {
                     <li>Use tag "user_id:" to filter specific applicant id ("user_id: 24125;")</li>
                     <li>Use tag "first_name:" to filter specific first name ("first_name: Bob, Jake;")</li>
                     <li>Other tags: last_name</li>
-                    <li>3 Available status: New, Current, Final</li>
                 </ul>
             </aside>
         </div>
 
-        <div id="listing-eois" class="fill flex-y box">';
+        <div id="listing-eois" class="fill flex-y box">' ;
 
     if ($search) {
         $terms = explode(';', $search);
@@ -71,8 +68,6 @@ render_page(function() use ($infos) {
 
         foreach ($searchTags as $tag => $infoKey) {
             foreach ($terms as $term) {
-                // var_dump($term, $tag);
-                // var_dump(str_starts_with($term, $tag));
                 $term = trim($term);
                 if (str_starts_with($term, $tag)) {
                     $extractedInfo = array_map('trim', explode(',', substr($term, strlen($tag))));
